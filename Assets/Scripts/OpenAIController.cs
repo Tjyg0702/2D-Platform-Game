@@ -29,7 +29,10 @@ public class OpenAIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             // Call the GetResponse() function
-            GetResponse();
+            if (okButton.enabled)
+            {
+                GetResponse();
+            }
         }
     }
     private void StartConversation()
@@ -53,6 +56,7 @@ public class OpenAIController : MonoBehaviour
         }
 
         // Disable the OK button during process
+        Debug.Log("Typing...");
         okButton.enabled = false;
 
         // Fill the user message from the input field
@@ -83,7 +87,7 @@ public class OpenAIController : MonoBehaviour
             MaxTokens = 50,
             Messages = messages
         });
-
+        Debug.Log("finish await...");
         // Get the response message
         ChatMessage responseMessage = new ChatMessage();
         responseMessage.Role = chatResult.Choices[0].Message.Role;
@@ -98,6 +102,7 @@ public class OpenAIController : MonoBehaviour
 
         // Re-enable the OK button
         okButton.enabled = true;
+        Debug.Log("Done!");
 
     }
 }
